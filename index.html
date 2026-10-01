@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>369工作室 · 国庆彩蛋</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            height: 100vh;
+            background: radial-gradient(circle at center, #1c2028 0%, #121418 100%);
+            color: #e8e8e8;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #42a5f5, #7ee787);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            z-index: 10;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #b0b8c4;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #42a5f5;
+            color: #111;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        .btn:hover {
+            background: #64b5f6;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(66, 165, 245, 0.6);
+        }
+        /* 飘落元素样式 */
+        .falling {
+            position: absolute;
+            top: -50px;
+            font-size: 2rem;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎉 369 工作室 · 国庆快乐 🎉</h1>
+    <p>
+        今天是国庆节，也是 369 工作室的第一个国庆。<br>
+        感谢每一位热爱代码的你，与我们同行。<br>
+        祝大家节日快乐，代码无 Bug，人生不报错！
+    </p>
+
+    <button class="btn" onclick="triggerFireworks()">🎆 点击查看彩蛋</button>
+    <br>
+    <a href="./问答.exe" class="btn" download style="background: #7ee787; margin-top: 20px;">📦 下载 369 问答器</a>
+
+    <script>
+        function triggerFireworks() {
+            // 1. 定义飘落元素集合
+            const emojis = ['🎉', '🇨🇳', '⭐', '🎆', '369', '🚀'];
+            
+            // 2. 播放 5 秒烟花动画
+            let count = 0;
+            const interval = setInterval(() => {
+                for (let i = 0; i < 10; i++) {
+                    const el = document.createElement('div');
+                    el.classList.add('falling');
+                    el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    el.style.left = Math.random() * 100 + 'vw';
+                    el.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    el.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    el.style.animationDelay = (Math.random() * 0.5) + 's';
+                    
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 4000);
+                }
+                
+                count++;
+                if (count > 10) clearInterval(interval); // 5 秒后停止
+            }, 500);
+
+            // 3. 5秒后跳转到庆祝页面并播放国歌
+            setTimeout(() => {
+                document.body.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #121418; text-align: center;">
+                        <h1 style="font-size: 3rem; background: linear-gradient(90deg, #ffd700, #ff4d4d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px;">
+                            热烈庆祝中华人民共和国成立77周年
+                        </h1>
+                        <p style="color: #b0b8c4; font-size: 1.2rem; margin-bottom: 30px;">🎉 369工作室祝祖国繁荣昌盛 🎉</p>
+                        <audio autoplay loop src="./《中华人民共和国国歌》.wav"></audio>
+                    </div>
+                `;
+            }, 5000); // 5000 毫秒 = 5 秒
+        }
+    </script>
+
+</body>
+</html>
